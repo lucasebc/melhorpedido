@@ -2,7 +2,7 @@ from modelORM import ProductORM, ProviderORM, OrderORM
 
 def cli():
     while True:
-        print('Digite uma opção:\n1 - Novo produto\n2 - Adicionar fornecedor\n3 - Listar produtos\n4 - Listar fornecedores\n5 - Gerar pedido\n0 - Sair')
+        print('Digite uma opção:\n1 - Novo produto\n2 - Adicionar fornecedor\n3 - Listar produtos\n4 - Listar fornecedores\n5 - Gerar pedido\n6 - Listar pedidos\n0 - Sair')
 
         option = input()
 
@@ -131,3 +131,14 @@ def cli():
                     elif not int(input('Produto não registrado. Gostaria de redigitar? (0 - Não | 1 - Sim)\n')):
                         whileOrder      = False
                         whileProduct    = False  
+
+        if option == '6':
+            orders = OrderORM().getOrders()
+
+            for o in orders:
+                p = ProductORM().searchProductByBarCode(o['product'])
+                string = 'id: {} - Data: {} - valor: {}, quantidade: {}, produto: {}'.format(o['id'], o['date'], o['totalValue'], o['amount'], p['description'])
+                print(string)
+
+        if option != '1' and option != '2' and option != '3' and option != '4' and option != '5' and option != '6':
+            print('Opção digitada ('+ option +') é inválida.\n')
