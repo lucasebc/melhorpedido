@@ -18,7 +18,7 @@ def cli():
                 print('Produto já registrado.\nOperação cancelada.\n')
                 break
             
-            product = {'barcode': barCode, 'description': input('Digite a descrição:\n')}
+            product = {'barCode': barCode, 'description': input('Digite a descrição:\n')}
             
             if orm.insertProduct(product):
                 print('Produto registrado com sucesso.\n')
