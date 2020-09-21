@@ -32,29 +32,30 @@ def cli():
                 break
                 
         if option == '2':
-            orm = ProviderORM()
+            while True:
+                orm = ProviderORM()
 
-            cnpj = int(input('Digite o CNPJ:\n'))
+                cnpj = int(input('Digite o CNPJ:\n'))
 
-            if not 'product' in locals():
-                product = ProductORM().searchProductByBarCode(int(input('Digite o código de barras do produto:\n')))
-                if product == None:
-                    print('Produto não registrado.\nOperação cancelada.\n')
+                if not 'product' in locals():
+                    product = ProductORM().searchProductByBarCode(int(input('Digite o código de barras do produto:\n')))
+                    if product == None:
+                        print('Produto não registrado.\nOperação cancelada.\n')
+                        break
+
+                if orm.searchProviderByCNPJAndBarCode(cnpj, product['barCode']):
+                    print('Fornecedor já registrado para este produto.\nOperação cancelada.\n')
                     break
 
-            if orm.searchProviderByCNPJAndBarCode(cnpj, product['barCode']):
-                print('Fornecedor já registrado para este produto.\nOperação cancelada.\n')
-                break
+                provider = {'cnpj': cnpj, 
+                            'unitPrice': float(input('Digite o preço unitário:\n')), 
+                            'minBatchSize': int(input('Digite a quantidade mínima atendida:\n')),
+                            'product': product['barCode']}
 
-            provider = {'cnpj': cnpj, 
-                        'unitPrice': float(input('Digite o preço unitário:\n')), 
-                        'minBatchSize': int(input('Digite a quantidade mínima atendida:\n')),
-                        'product': product['barCode']}
-
-            if orm.insertProvider(provider):
-                print('Fornecedor registrado com sucesso.\n')
-            else:
-                print('Ocorreu um erro.\n')
+                if orm.insertProvider(provider):
+                    print('Fornecedor registrado com sucesso.\n')
+                else:
+                    print('Ocorreu um erro.\n')
 
         if option == '3':
             products = ProductORM().getProducts()
