@@ -7,6 +7,18 @@
         {
             "barCode": 2,
             "description": "Produto 2"
+        },
+        {
+            "barCode": 3,
+            "description": "Produto 3"
+        },
+        {
+            "barCode": 4,
+            "description": "produto 4"
+        },
+        {
+            "barCode": 5,
+            "description": "produto 5"
         }
     ],
     "providers": [

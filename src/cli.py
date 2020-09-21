@@ -10,23 +10,26 @@ def cli():
             return
 
         if option == '1':
-            orm     = ProductORM()
+            while True:
+                orm     = ProductORM()
             
-            barCode = int(input('Digite o código de barras:\n')) 
+                barCode = int(input('Digite o código de barras:\n')) 
 
-            if orm.searchProductByBarCode(barCode):
-                print('Produto já registrado.\nOperação cancelada.\n')
+                if orm.searchProductByBarCode(barCode):
+                    print('Produto já registrado.\nOperação cancelada.\n')
+                    break
+                
+                product = {'barCode': barCode, 'description': input('Digite a descrição:\n')}
+                
+                if orm.insertProduct(product):
+                    print('Produto registrado com sucesso.\n')
+                else:
+                    print('Ocorreu um erro.\n')
+                    break
+
+                if int(input('Inserir fornecedor?(0 - Não | 1 - Sim)\n')):
+                    option = '2'
                 break
-            
-            product = {'barCode': barCode, 'description': input('Digite a descrição:\n')}
-            
-            if orm.insertProduct(product):
-                print('Produto registrado com sucesso.\n')
-            else:
-                print('Ocorreu um erro.\n')
-
-            if input('Inserir fornecedor?(0 - Não | 1 - Sim)\n'):
-                option = '2'
                 
         if option == '2':
             orm = ProviderORM()

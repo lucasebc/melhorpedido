@@ -1,4 +1,5 @@
 # Como executar
+Através do terminal (Com duplo clique o python não responde adequadamente)
 - Primeiro, acesse a pasta src.
 - Depois use o comando main.py para acessar o programa através do CLI.
 
