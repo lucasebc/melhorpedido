@@ -51,6 +51,12 @@
             "unitPrice": 11.0,
             "minBatchSize": 200,
             "product": 2
+        },
+        {
+            "cnpj": 111,
+            "unitPrice": 12.0,
+            "minBatchSize": 1,
+            "product": 3
         }
     ],
     "orders": [

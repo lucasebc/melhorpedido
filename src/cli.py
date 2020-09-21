@@ -56,6 +56,7 @@ def cli():
                     print('Fornecedor registrado com sucesso.\n')
                 else:
                     print('Ocorreu um erro.\n')
+                break
 
         if option == '3':
             products = ProductORM().getProducts()
