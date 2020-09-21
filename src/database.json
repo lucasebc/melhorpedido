@@ -6,31 +6,7 @@
         },
         {
             "barCode": 2,
-            "description": "produto 2"
-        },
-        {
-            "barCode": 99,
-            "description": "Produto 3"
-        },
-        {
-            "barCode": 100,
-            "description": "produto 4"
-        },
-        {
-            "barCode": 3,
-            "description": "produto 5"
-        },
-        {
-            "barCode": 4,
-            "description": "produto 4"
-        },
-        {
-            "barCode": 5,
-            "description": "produto 5"
-        },
-        {
-            "barCode": 333,
-            "description": "produto 333"
+            "description": "Produto 2"
         }
     ],
     "providers": [
@@ -39,32 +15,41 @@
             "unitPrice": 21.4,
             "minBatchSize": 25,
             "product": 1
+        },
+        {
+            "cnpj": 124,
+            "unitPrice": 44.2,
+            "minBatchSize": 50,
+            "product": 1
+        },
+        {
+            "cnpj": 125,
+            "unitPrice": 17.7,
+            "minBatchSize": 20,
+            "product": 1
+        },
+        {
+            "cnpj": 111,
+            "unitPrice": 10.0,
+            "minBatchSize": 150,
+            "product": 1
+        },
+        {
+            "cnpj": 111,
+            "unitPrice": 11.0,
+            "minBatchSize": 200,
+            "product": 2
         }
     ],
     "orders": [
         {
             "id": 1,
             "providersCNPJ": 123,
-            "date": "2020-09-05 23:12:41.958168",
-            "totalValue": 897.5,
-            "product": 1
-        },
-        {
-            "id": 2,
-            "providersCNPJ": 123,
-            "date": "2020-09-20 19:18:43.622392",
+            "date": "2020-09-20 22:29:08.762829",
             "totalValue": 1070.0,
             "amount": 50,
             "product": 1
-        },
-        {
-            "id": 3,
-            "providersCNPJ": 123,
-            "date": "2020-09-20 19:24:21.199625",
-            "totalValue": 535.0,
-            "amount": 25,
-            "product": 1
         }
     ],
-    "orderIdCounter": 4
+    "orderIdCounter": 2
 }

@@ -33,17 +33,20 @@ def cli():
 
             cnpj = int(input('Digite o CNPJ:\n'))
 
-            if orm.searchProviderByCNPJ(cnpj):
-                print('Fornecedor já registrado.\nOperação cancelada.\n')
-                break
-
-            if product == None:
+            if not 'product' in locals():
                 product = ProductORM().searchProductByBarCode(int(input('Digite o código de barras do produto:\n')))
                 if product == None:
                     print('Produto não registrado.\nOperação cancelada.\n')
                     break
 
-            provider = {'cnpj': cnpj, 'unitPrice': float(input('Digite o preço unitário:\n')), 'minBatchSize': int(input('Digite a quantidade mínima atendida:\n'))}
+            if orm.searchProviderByCNPJAndBarCode(cnpj, product['barCode']):
+                print('Fornecedor já registrado para este produto.\nOperação cancelada.\n')
+                break
+
+            provider = {'cnpj': cnpj, 
+                        'unitPrice': float(input('Digite o preço unitário:\n')), 
+                        'minBatchSize': int(input('Digite a quantidade mínima atendida:\n')),
+                        'product': product['barCode']}
 
             if orm.insertProvider(provider):
                 print('Fornecedor registrado com sucesso.\n')
@@ -54,7 +57,8 @@ def cli():
             products = ProductORM().getProducts()
 
             for p in products:
-                print(p)
+                string = 'Produto: {} - Código de barras: {}'.format(p['description'], p['barCode'])
+                print(string)
 
         if option == '4':
             providers = ProviderORM().getProviders()
@@ -74,44 +78,52 @@ def cli():
                     product = ProductORM().searchProductByBarCode(int(input('Digite o código de barras do produto:\n')))
 
                     if product:
-                        providers = ProviderORM().searchProvidersByProduct(product['barCode'])
 
-                        if len(providers) == 0:
-                            print('Produto não tem fornecedores registrados.\nOperação cancelada.\n')
-                            whileOrder      = False
-                            whileProduct    = False
-                        else:
-                            print('Fornecedores disponíveis:\n')
-                            for p in providers:
-                                print(p)
+                        while True:
+                            amount = int(input('Digite a quantidade:\n'))
 
-                            provider = ProviderORM().searchProviderByCNPJ(int(input('Digite o CNPJ do fornecedor:\n')))
+                            if amount > 0:
+                                providers = ProviderORM().searchProvidersByProductAndAmount(product['barCode'], amount)
 
-                            if provider:
-                                while True:
-                                    amount = int(input('Digite a quantidade:\n'))
+                                if len(providers) == 0:
+                                    print('Produto não tem fornecedores que atendem esta quantidade.\nOperação cancelada.\n')
+                                    whileOrder      = False
+                                    whileProduct    = False
+                                    break
+                                else:
+                                    print('Fornecedores disponíveis:\n')
+                                    bestCost = None
+                                    for p in providers:
+                                        if bestCost == None:
+                                            bestCost = p
+                                        elif bestCost['unitPrice'] > p['unitPrice']:
+                                            bestCost = p
+                                        print(p)
+                                    print('Fornecedor recomendado: ')
+                                    print(bestCost)
 
-                                    if amount > 0 and amount >= provider['minBatchSize']:
+                                    provider = ProviderORM().searchProviderByCNPJ(int(input('Digite o CNPJ do fornecedor desejado:\n')))
 
+                                    if provider:
                                         order = {   'id': None, 'providersCNPJ': provider['cnpj'], 
                                                     'date': None, 'totalValue': None, 'amount': amount, 
                                                     'product': product['barCode'] }
                                         order['totalValue'] = order['amount'] * provider['unitPrice']
 
                                         if OrderORM().insertOrder(order):
-                                            print('pedido registrado com sucesso.\n')
+                                            print('Pedido registrado com sucesso.\n')
                                         else:
-                                            print('ocorreu um erro. Operação cancelada.\n')
-                                        
-                                        whileOrder      = False
-                                        whileProduct    = False
-                                        break
+                                            print('Ocorreu um erro. Operação cancelada.\n')
+                                                
+                                            whileOrder      = False
+                                            whileProduct    = False
+                                            break
 
-                                    elif not input('Quantidade inválida. Redigitar? (0 - Não | 1 - Sim)\n'):
-                                        print('Operação cancelada.\n')
-                                        whileOrder      = False
-                                        whileProduct    = False
-                                        break
+                            elif not input('Quantidade inválida. Redigitar? (0 - Não | 1 - Sim)\n'):
+                                print('Operação cancelada.\n')
+                                whileOrder      = False
+                                whileProduct    = False
+                                break
 
                     elif not int(input('Produto não registrado. Gostaria de redigitar? (0 - Não | 1 - Sim)\n')):
                         whileOrder      = False

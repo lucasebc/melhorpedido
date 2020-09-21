@@ -96,10 +96,30 @@ class ProviderORM:
                 return p
         return None
 
+    def searchProviderByCNPJAndBarCode(self, cnpj, barCode):
+        for p in self.providers:
+            if p['cnpj'] == cnpj and p['product'] == barCode:
+                return p
+        return None
+
     def searchProvidersByProduct(self, barCode):
         aux = []
         for p in self.providers:
             if p['product'] == barCode:
+                aux.append(p)
+        return aux
+
+    def searchProvidersByProductAndAmount(self, barCode, amount):
+        aux = []
+        for p in self.providers:
+            if p['product'] == barCode and amount >= p['minBatchSize']:
+                aux.append(p)
+        return aux
+
+    def searchProductsFromProvider(self, cnpj):
+        aux = []
+        for p in self.providers:
+            if p['cnpj'] == cnpj:
                 aux.append(p)
         return aux
 
