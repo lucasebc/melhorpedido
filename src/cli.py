@@ -26,8 +26,8 @@ def cli():
                 print('Ocorreu um erro.\n')
 
             if input('Inserir fornecedor?(0 - Não | 1 - Sim)\n'):
-                option = 2
-
+                option = '2'
+                
         if option == '2':
             orm = ProviderORM()
 

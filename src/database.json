@@ -23,6 +23,14 @@
         {
             "barCode": 4,
             "description": "produto 4"
+        },
+        {
+            "barCode": 5,
+            "description": "produto 5"
+        },
+        {
+            "barCode": 333,
+            "description": "produto 333"
         }
     ],
     "providers": [
