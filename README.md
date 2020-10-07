@@ -1,3 +1,5 @@
+# Projeto conceitual para estudo.
+
 # Como executar
 Através do terminal (Com duplo clique o python não responde adequadamente)
 - Primeiro, acesse a pasta src.
