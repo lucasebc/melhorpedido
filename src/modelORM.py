@@ -9,7 +9,7 @@ class DBConnection:
 
     def resetDB(self):
         with open(self.__dbLocation, "w") as file:
-            json.dump({'products': [], 'orders': []}, file, indent=4)
+            json.dump({'products': [], 'providers': [], 'orders': []}, file, indent=4)
         file.close()
 
     def readDB(self):
@@ -70,7 +70,11 @@ class ProductORM:
         return True
 
     def deleteProduct(self, product):
-        pass
+        for index, p in enumerate(self.products):
+            if p['barCode'] == product['barCode']:
+                self.products.pop(index)
+                self.saveData()
+        return False
 
     def alterProduct(self, product):
         for index, p in enumerate(self.products):
@@ -85,16 +89,16 @@ class ProviderORM:
 
     def getData(self):
         return DBConnection().getTB("providers")
-        
 
     def saveData(self):
         return DBConnection().writeDB("providers", self.providers)
 
     def searchProviderByCNPJ(self, value):
+        provs = []
         for p in self.providers:
             if p['cnpj'] == value:
-                return p
-        return None
+                provs.append(p)
+        return provs
 
     def searchProviderByCNPJAndBarCode(self, cnpj, barCode):
         for p in self.providers:
@@ -116,13 +120,6 @@ class ProviderORM:
                 aux.append(p)
         return aux
 
-    def searchProductsFromProvider(self, cnpj):
-        aux = []
-        for p in self.providers:
-            if p['cnpj'] == cnpj:
-                aux.append(p)
-        return aux
-
     def getProviders(self):
         return self.providers
 
@@ -135,13 +132,20 @@ class ProviderORM:
         return True
 
     def deleteProvider(self, provider):
-        pass
+        for index, p in enumerate(self.providers):
+            
+            if p['cnpj'] == provider['cnpj']:
+                self.providers.pop(index)
+                self.saveData()
 
     def alterProvider(self, provider):
         for index, p in enumerate(self.providers):
-            if p['cnpj'] == provider['cnpj']:
+
+            if p['cnpj'] == provider['cnpj'] and p['product'] == provider['product']:
+
                 self.providers[index] = provider
                 self.saveData()
+
         return False
 
 class OrderORM:

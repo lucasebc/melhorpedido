@@ -2,7 +2,7 @@
     "products": [
         {
             "barCode": 1,
-            "description": "produto 1"
+            "description": "Produto 1"
         },
         {
             "barCode": 2,
@@ -19,6 +19,14 @@
         {
             "barCode": 5,
             "description": "produto 5"
+        },
+        {
+            "barCode": 6,
+            "description": "produto 6"
+        },
+        {
+            "barCode": 7,
+            "description": "produto 7"
         }
     ],
     "providers": [
@@ -42,32 +50,148 @@
         },
         {
             "cnpj": 111,
-            "unitPrice": 10.0,
-            "minBatchSize": 150,
+            "unitPrice": 21.0,
+            "minBatchSize": 20,
             "product": 1
         },
         {
             "cnpj": 111,
-            "unitPrice": 11.0,
-            "minBatchSize": 200,
+            "unitPrice": 21.0,
+            "minBatchSize": 20,
             "product": 2
         },
         {
             "cnpj": 111,
-            "unitPrice": 12.0,
-            "minBatchSize": 1,
+            "unitPrice": 21.0,
+            "minBatchSize": 25,
             "product": 3
         }
     ],
     "orders": [
         {
             "id": 1,
-            "providersCNPJ": 123,
-            "date": "2020-09-20 22:29:08.762829",
-            "totalValue": 1070.0,
-            "amount": 50,
-            "product": 1
+            "providersCNPJ": 111,
+            "date": "2020-10-04 19:49:35.150891",
+            "totalPrice": 1050.0,
+            "products": [
+                {
+                    "barCode": 3,
+                    "amount": "30",
+                    "totalPrice": 630.0
+                },
+                {
+                    "barCode": 2,
+                    "amount": "20",
+                    "totalPrice": 420.0
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "providersCNPJ": 111,
+            "date": "2020-10-04 20:41:19.183551",
+            "totalPrice": 0.0,
+            "products": [
+                {
+                    "barCode": 2,
+                    "amount": 20,
+                    "totalPrice": 420.0
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "providersCNPJ": 111,
+            "date": "2020-10-04 20:45:47.323582",
+            "totalPrice": 0.0,
+            "products": [
+                {
+                    "barCode": 2,
+                    "amount": 50,
+                    "totalPrice": 1050.0
+                },
+                {
+                    "barCode": 3,
+                    "amount": 25,
+                    "totalPrice": 525.0
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "providersCNPJ": 111,
+            "date": "2020-10-04 21:10:51.878223",
+            "totalPrice": 1050.0,
+            "products": [
+                {
+                    "barCode": 3,
+                    "amount": "25",
+                    "totalPrice": 525.0
+                },
+                {
+                    "barCode": 2,
+                    "amount": "25",
+                    "totalPrice": 525.0
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "providersCNPJ": 124,
+            "date": "2020-10-04 21:43:29.946560",
+            "totalPrice": 49106.200000000004,
+            "products": [
+                {
+                    "barCode": 1,
+                    "amount": "1111",
+                    "totalPrice": 49106.200000000004
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "providersCNPJ": 124,
+            "date": "2020-10-04 22:09:51.365197",
+            "totalPrice": 5525.0,
+            "products": [
+                {
+                    "barCode": 1,
+                    "amount": "125",
+                    "totalPrice": 5525.0
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "providersCNPJ": 111,
+            "date": "2020-10-04 22:10:06.343540",
+            "totalPrice": 1176.0,
+            "products": [
+                {
+                    "barCode": 2,
+                    "amount": "25",
+                    "totalPrice": 525.0
+                },
+                {
+                    "barCode": 1,
+                    "amount": "31",
+                    "totalPrice": 651.0
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "providersCNPJ": 124,
+            "date": "2020-10-04 22:11:29.595314",
+            "totalPrice": 4906.200000000001,
+            "products": [
+                {
+                    "barCode": 1,
+                    "amount": "111",
+                    "totalPrice": 4906.200000000001
+                }
+            ]
         }
     ],
-    "orderIdCounter": 2
+    "orderIdCounter": 8
 }
